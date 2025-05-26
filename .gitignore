@@ -1,0 +1,31 @@
+# Kernel Module Compile Products
+*.o
+*.ko
+*.mod
+*.mod.c
+*.mod.o
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+.tmp_versions/
+
+# Build artifacts
+*.cmd
+.cache.mk
+*.a
+*.so
+*.so.*
+
+# Editor files
+*~
+.*.swp
+.*.swo
+*.bak
+
+# Dependency files
+*.d
+
+# Other generated files
+modules.builtin
+modules.builtin.modinfo 
