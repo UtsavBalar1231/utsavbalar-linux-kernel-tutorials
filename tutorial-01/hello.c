@@ -1,11 +1,11 @@
-#include <linux/module.h>    // Core module functionality
-#include <linux/kernel.h>    // For KERN_INFO
-#include <linux/init.h>      // For module_init and module_exit macros
+#include <linux/module.h> // Core module functionality
+#include <linux/kernel.h> // For KERN_INFO
+#include <linux/init.h> // For module_init and module_exit macros
 
-MODULE_LICENSE("GPL");                      // Module license
-MODULE_AUTHOR("Utsav Balar");               // Module author
+MODULE_LICENSE("GPL"); // Module license
+MODULE_AUTHOR("Utsav Balar"); // Module author
 MODULE_DESCRIPTION("A simple Hello World kernel module"); // Module description
-MODULE_VERSION("0.1");                      // Module version
+MODULE_VERSION("0.1"); // Module version
 
 /**
  * hello_init - Module initialization function
@@ -17,8 +17,8 @@ MODULE_VERSION("0.1");                      // Module version
  */
 static int __init hello_init(void)
 {
-    printk(KERN_INFO "Hello World: Module loaded\n");
-    return 0;
+	printk(KERN_INFO "Hello World: Module loaded\n");
+	return 0;
 }
 
 /**
@@ -29,9 +29,9 @@ static int __init hello_init(void)
  */
 static void __exit hello_exit(void)
 {
-    printk(KERN_INFO "Hello World: Module unloaded\n");
+	printk(KERN_INFO "Hello World: Module unloaded\n");
 }
 
 // Register module initialization and cleanup functions
 module_init(hello_init);
-module_exit(hello_exit); 
+module_exit(hello_exit);

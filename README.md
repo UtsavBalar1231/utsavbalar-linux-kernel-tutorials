@@ -13,7 +13,7 @@ This repository contains practical examples of Linux kernel modules correspondin
 ## Requirements
 
 - Linux system (Raspberry Pi 5 recommended)
-- Linux kernel headers (6.12+)
+- Linux kernel headers (6.12+ recommended, but compatible with earlier versions)
 - Build essentials (gcc, make)
 
 ## Quick Start
@@ -79,7 +79,7 @@ dmesg | tail
 
 ## Compatibility
 
-All modules have been updated to be compatible with Linux kernel 6.12 and higher, incorporating the latest kernel API changes.
+All modules have been updated to support Linux kernel 6.12 and higher, incorporating the latest kernel API changes. They also maintain backward compatibility with earlier kernel versions through conditional compilation, focusing particularly on the `class_create` API that changed in 6.12.
 
 ## License
 
