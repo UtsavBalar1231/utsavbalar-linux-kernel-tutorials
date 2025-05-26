@@ -29,3 +29,9 @@ dkms.conf
 # Other generated files
 modules.builtin
 modules.builtin.modinfo 
+
+# Test files
+tutorial-02/test_char
+tutorial-03/test_kmem
+tutorial-04/test_sync
+tutorial-05/test_irq

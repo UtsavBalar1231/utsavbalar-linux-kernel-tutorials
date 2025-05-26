@@ -13,10 +13,32 @@ This repository contains practical examples of Linux kernel modules correspondin
 ## Requirements
 
 - Linux system (Raspberry Pi 5 recommended)
-- Linux kernel headers
+- Linux kernel headers (6.12+)
 - Build essentials (gcc, make)
 
-## Building Modules
+## Quick Start
+
+The easiest way to build and test all modules is to use the provided scripts:
+
+### Building All Modules
+
+```bash
+./build_all.sh
+```
+
+This will build all kernel modules without loading them into the kernel.
+
+### Testing All Modules
+
+```bash
+sudo ./test_all.sh
+```
+
+This will build, load, and test each module automatically. The script requires root privileges to load the modules. It includes automatic cleanup to ensure all modules are unloaded even if an error occurs.
+
+See [TESTING.md](./TESTING.md) for more details on the testing process.
+
+## Building Modules Manually
 
 Each tutorial directory contains a Makefile. To build a module, navigate to the specific tutorial directory and run:
 
@@ -24,7 +46,7 @@ Each tutorial directory contains a Makefile. To build a module, navigate to the 
 make
 ```
 
-## Testing Modules
+## Testing Modules Manually
 
 Each tutorial includes a test program (`test_*.c`) to demonstrate and test the functionality of the kernel module. To build and run the test program:
 
@@ -35,7 +57,7 @@ gcc -o test_program test_*.c
 
 See the README.md in each tutorial directory for specific instructions on using the test programs.
 
-## Loading and Testing Modules
+## Loading and Testing Modules Manually
 
 After building, you can load a module using:
 
@@ -54,6 +76,10 @@ Check the kernel logs to see the module's output:
 ```bash
 dmesg | tail
 ```
+
+## Compatibility
+
+All modules have been updated to be compatible with Linux kernel 6.12 and higher, incorporating the latest kernel API changes.
 
 ## License
 
