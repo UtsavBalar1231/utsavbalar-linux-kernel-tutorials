@@ -24,24 +24,24 @@ static struct device *simple_device = NULL; /* Device */
 static struct cdev simple_cdev;        /* Character device structure */
 
 /* Prototypes for device functions */
-static int simple_open(struct inode *, struct file *);
-static int simple_release(struct inode *, struct file *);
-static ssize_t simple_read(struct file *, char __user *, size_t, loff_t *);
-static ssize_t simple_write(struct file *, const char __user *, size_t, loff_t *);
-static loff_t simple_llseek(struct file *, loff_t, int);
+static int char_open(struct inode *, struct file *);
+static int char_release(struct inode *, struct file *);
+static ssize_t char_read(struct file *, char __user *, size_t, loff_t *);
+static ssize_t char_write(struct file *, const char __user *, size_t, loff_t *);
+static loff_t char_llseek(struct file *, loff_t, int);
 
 /* Define file operations for our device */
 static struct file_operations simple_fops = {
     .owner = THIS_MODULE,
-    .open = simple_open,
-    .release = simple_release,
-    .read = simple_read,
-    .write = simple_write,
-    .llseek = simple_llseek,
+    .open = char_open,
+    .release = char_release,
+    .read = char_read,
+    .write = char_write,
+    .llseek = char_llseek,
 };
 
 /* Called when device is opened */
-static int simple_open(struct inode *inode, struct file *file)
+static int char_open(struct inode *inode, struct file *file)
 {
     /* Nothing special to do here */
     printk(KERN_INFO "SIMPLE: Device opened\n");
@@ -49,14 +49,14 @@ static int simple_open(struct inode *inode, struct file *file)
 }
 
 /* Called when device is closed */
-static int simple_release(struct inode *inode, struct file *file)
+static int char_release(struct inode *inode, struct file *file)
 {
     printk(KERN_INFO "SIMPLE: Device closed\n");
     return 0;
 }
 
 /* Called when user reads from the device */
-static ssize_t simple_read(struct file *file, char __user *user_buffer, 
+static ssize_t char_read(struct file *file, char __user *user_buffer, 
                           size_t count, loff_t *offset)
 {
     int bytes_to_read;
@@ -81,7 +81,7 @@ static ssize_t simple_read(struct file *file, char __user *user_buffer,
 }
 
 /* Called when user writes to the device */
-static ssize_t simple_write(struct file *file, const char __user *user_buffer, 
+static ssize_t char_write(struct file *file, const char __user *user_buffer, 
                            size_t count, loff_t *offset)
 {
     int bytes_to_write;
@@ -106,7 +106,7 @@ static ssize_t simple_write(struct file *file, const char __user *user_buffer,
 }
 
 /* Called when user changes file position with lseek */
-static loff_t simple_llseek(struct file *file, loff_t offset, int whence)
+static loff_t char_llseek(struct file *file, loff_t offset, int whence)
 {
     loff_t new_pos;
     
@@ -142,8 +142,8 @@ static int __init simple_char_init(void)
     }
     printk(KERN_INFO "SIMPLE: Registered with major number %d\n", major_number);
     
-    /* Register the device class */
-    simple_class = class_create(THIS_MODULE, CLASS_NAME);
+    /* Register the device class - using updated API for 6.12+ */
+    simple_class = class_create(CLASS_NAME);
     if (IS_ERR(simple_class)) {
         unregister_chrdev(major_number, DEVICE_NAME);
         printk(KERN_ALERT "SIMPLE: Failed to register device class\n");

@@ -31,7 +31,7 @@ MODULE_VERSION("0.1");
 #define BUTTON_GPIO 17  /* Using GPIO 17 as example, adjust for your hardware */
 
 /* Timer period (in nanoseconds) for simulated interrupts */
-#define TIMER_PERIOD_NS 1000000000  /* 1 second */
+#define TIMER_PERIOD_NS 1000000000L  /* 1 second */
 
 /* Workqueue and work variables */
 static struct workqueue_struct *demo_wq;
@@ -105,7 +105,7 @@ static int irq_proc_show(struct seq_file *m, void *v)
     }
     
     if (using_timer) {
-        seq_printf(m, "Using timer to simulate interrupts (period: %lld ns)\n", TIMER_PERIOD_NS);
+        seq_printf(m, "Using timer to simulate interrupts (period: %ld ns)\n", TIMER_PERIOD_NS);
     }
     
     if (irq_time) {
@@ -356,7 +356,7 @@ static int __init irq_demo_init(void)
     pr_info("irq_demo: Registered with major number %d\n", major_number);
     
     /* Register the device class */
-    irq_class = class_create(THIS_MODULE, CLASS_NAME);
+    irq_class = class_create(CLASS_NAME);
     if (IS_ERR(irq_class)) {
         pr_err("irq_demo: Failed to register device class\n");
         ret = PTR_ERR(irq_class);

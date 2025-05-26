@@ -262,7 +262,7 @@ static int __init sync_demo_init(void)
     pr_info("sync_demo: Registered with major number %d\n", major_number);
     
     /* Register the device class */
-    sync_class = class_create(THIS_MODULE, CLASS_NAME);
+    sync_class = class_create(CLASS_NAME);
     if (IS_ERR(sync_class)) {
         unregister_chrdev(major_number, DEVICE_NAME);
         pr_err("sync_demo: Failed to register device class\n");
@@ -285,7 +285,8 @@ static int __init sync_demo_init(void)
     sync_cdev.owner = THIS_MODULE;
     
     /* Add the character device to the system */
-    if (cdev_add(&sync_cdev, MKDEV(major_number, 0), 1) < 0) {
+    ret = cdev_add(&sync_cdev, MKDEV(major_number, 0), 1);
+    if (ret < 0) {
         device_destroy(sync_class, MKDEV(major_number, 0));
         class_destroy(sync_class);
         unregister_chrdev(major_number, DEVICE_NAME);
@@ -317,7 +318,7 @@ static int __init sync_demo_init(void)
     }
     
     pr_info("sync_demo: Module loaded\n");
-    return 0;
+    return ret;
 }
 
 static void __exit sync_demo_exit(void)
